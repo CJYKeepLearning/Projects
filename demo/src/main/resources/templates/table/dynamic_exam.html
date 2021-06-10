@@ -12,34 +12,31 @@
 <table>
     <thead>
     <tr>
-        <th>id</th>
+        <th>cno</th>
         <th>cname</th>
-        <th>credit</th>
-        <th>weekhours</th>
+        <th>grade</th>
         <th>删除</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="cou: ${courses}">
-        <td th:text="${cou.id}"></td>
-        <td th:text="${cou.getCname()}"></td>
-        <td th:text="${cou.getCredit()}"></td>
-        <td th:text="${cou.getWeekhours()}"></td>
+    <tr th:each="exam: ${exams}">
+        <td th:text="${exam.cno}"></td>
+<!--        <th th:text="${exam.getCno()}"></th>-->
+        <td th:text="${exam.getGrade()}"></td>
+        <label style="color: red" th:text="${msg}"></label>
         <td>
-            <a th:href="@{/deleteCourse/{id}(id=${cou.id})}" type="button">删除</a>
-            <!--点击才会有！，没加此判断-->
+            <a th:href="@{/deleteExam(cno=${exam.cno},sno=${exam.sno})}" type="button">删除</a>
         </td>
     </tr>
-    <label style="color: red" th:text="${msg}"></label><br>
-    <tr>
-        <!--跳转到增加学生界面-->
+<!--    <tr>
+        &lt;!&ndash;跳转到增加学生界面&ndash;&gt;
         <a class="" th:href="@{addCourse.html}">
             增加课程信息
         </a>
         <a class="" th:href="@{updateCourse.html}">
             更新课程信息
         </a>
-    </tr>
+    </tr>-->
     </tbody>
 </table>
 </body>

@@ -27,8 +27,10 @@
         <td th:text="${cou.getWeekhours()}"></td>
         <td>
             <a th:href="@{/deleteCourse/{id}(id=${cou.id})}" type="button">删除</a>
+            <!--点击才会有！，没加此判断-->
         </td>
     </tr>
+    <label style="color: red" th:text="${msg}"></label><br>
     <tr>
         <!--跳转到增加学生界面-->
         <a class="" th:href="@{addCourse.html}">

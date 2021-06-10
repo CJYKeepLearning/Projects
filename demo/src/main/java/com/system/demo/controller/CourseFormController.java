@@ -1,7 +1,10 @@
 package com.system.demo.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.system.demo.bean.Course;
+import com.system.demo.bean.Exam;
 import com.system.demo.service.CourseService;
+import com.system.demo.service.ExamService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +18,9 @@ import java.util.List;
 public class CourseFormController {
     @Autowired
     CourseService courseService;
+
+    @Autowired
+    ExamService examService;
 
     //课程信息,还没加接口跳转到课程主页面！
     //显示全部课程信息:使用ModelAndView
@@ -87,10 +93,15 @@ public class CourseFormController {
 
     //删除课程信息
     @GetMapping("/deleteCourse/{id}")
-    public String deleteCourse(@PathVariable("id") Long id){
-
-        courseService.removeById(id);
-
+    public String deleteCourse(@PathVariable("id") Long id,Model model){
+        QueryWrapper<Exam> queryWrapper = new QueryWrapper<>();
+        queryWrapper = queryWrapper.ge("cno",id);
+        List<Exam> list = examService.list(queryWrapper);
+        if(list.size()!=0){
+            model.addAttribute("msg","该课已有学生选修，不能删除！");
+        }else{
+            courseService.removeById(id);
+        }
         return "redirect:/dynamic_course";
     }
 
