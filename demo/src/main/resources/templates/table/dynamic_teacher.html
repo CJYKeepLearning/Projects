@@ -10,9 +10,41 @@
 </head>
 
 <body>
+<table>
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>删除</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="teacher: ${teachers}">
+        <td th:text="${teacher.id}"></td>
+        <td th:text="${teacher.tname}"></td>
+        <td>
+            <a th:href="@{/deleteStudent/{id}(id=${teacher.id})}" type="button">删除</a>
+        </td>
+    </tr>
 
-<p>Welcome to our grocery store!</p>
-
+    <form th:action="@{/getExamList}" method="post">
+        <tr>
+            根据教师号查询教师授课:<br>
+            sno: <input type="text" name="sno"><br>
+            <button type="submit">提交</button>
+        </tr>
+    </form>
+    <tr>
+        <!--跳转到增加教师界面-->
+        <a class="" th:href="@{addOrUpdateTeacher.html}">
+            增加或更新教师信息
+        </a>
+        <a class="" th:href="@{addTC.html}">
+            增加授课信息
+        </a>
+    </tr>
+    </tbody>
+</table>
 </body>
 
 </html>

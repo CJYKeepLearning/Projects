@@ -6,6 +6,7 @@ import com.system.demo.service.ExamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -18,12 +19,9 @@ public class ExamFormController {
     ExamService examService;
 
     //删除某人的考试记录
-    @PostMapping("/deleteExam")
-    public String deleteExam(@RequestParam(value = "cno")Long cno,@RequestParam(value = "sno")Long sno,@RequestParam(value = "grade")Long grade, Model model){
-        QueryWrapper<Exam> queryWrapper = new QueryWrapper<>();
-        queryWrapper = queryWrapper.ge("cno",cno);
-        queryWrapper = queryWrapper.ge("sno",sno);
-        examService.removeById(queryWrapper);
+    @GetMapping("/deleteExam")
+    public String deleteExam(@RequestParam(value = "id")Long id,Model model){
+        examService.removeById(id);
         return "table/dynamic_exam";
     }
     //根据sno得到个人的选课信息

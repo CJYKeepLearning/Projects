@@ -4,3 +4,13 @@ spring:
     username: root
     password: "123456"
     driver-class-name: com.mysql.cj.jdbc.Driver
+
+# 配置mybatis规则
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml  #全局配置文件位置
+  mapper-locations: classpath:mybatis/mapper/*.xml  #sql映射文件位置
+
+#mpp:
+#  entityBasePath: com.github.jeffreyning.mybatisplus.demo.entity
+#mpp:
+#  utilBasePath: com.github.jeffreyning.mybatisplus.demo.common

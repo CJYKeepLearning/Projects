@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @Data
 public class Teacher {
     private Long id;
-    private String Tname;
+    private String tname;
 }

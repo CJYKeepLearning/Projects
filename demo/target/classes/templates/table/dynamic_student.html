@@ -28,7 +28,8 @@
 
     <form th:action="@{/getExamList}" method="post">
     <tr>
-        id: <input type="text" name="sno"><br>
+        根据学号查询学生考试成绩:<br>
+        sno: <input type="text" name="sno"><br>
         <button type="submit">提交</button>
     </tr>
     </form>
@@ -39,6 +40,9 @@
         </a>
         <a class="" th:href="@{updateStudent.html}">
             更新学生信息
+        </a>
+        <a class="" th:href="@{addSC.html}">
+            增加考试信息
         </a>
     </tr>
     </tbody>

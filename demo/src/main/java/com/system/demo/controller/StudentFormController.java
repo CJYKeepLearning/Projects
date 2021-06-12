@@ -1,6 +1,12 @@
 package com.system.demo.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.sun.org.apache.xpath.internal.operations.Mod;
+import com.system.demo.bean.Exam;
 import com.system.demo.bean.Student;
+import com.system.demo.mapper.ExamMapper;
+import com.system.demo.service.CourseService;
+import com.system.demo.service.ExamService;
 import com.system.demo.service.StudentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +23,10 @@ import java.util.List;
 public class StudentFormController {
     @Autowired
     StudentService studentService;
+    @Autowired
+    CourseService courseService;
+    @Autowired
+    ExamService examService;
 
     //显示全部学生信息:使用ModelAndView
     @GetMapping("/dynamic_student")
@@ -85,13 +95,37 @@ public class StudentFormController {
         }
         return "update/updateStudent";
     }
+    @GetMapping("/addSC.html")
+    public String swapToPageAddSC(){
+        return "add/addSC";
+    }
+    @PostMapping("/addSC")
+    public String addSC(@RequestParam("sno")Long sno, @RequestParam("cno")Long cno,
+                        @RequestParam("grade")Long grade, Model model){
+        //判断是否存在sno,cno
+        if (studentService.getById(sno)!=null && courseService.getById(cno)!=null){
+            Exam exam = new Exam(null,sno,cno,grade);
+            QueryWrapper<Exam> queryWrapper = new QueryWrapper<>();
+            queryWrapper = queryWrapper.ge("sno",sno);
+            queryWrapper = queryWrapper.ge("cno",cno);
+            if (examService.list(queryWrapper).size()!=0){
+                Long id = examService.list(queryWrapper).get(0).getId();
+                exam.setId(id);
+                examService.saveOrUpdate(exam);
+            }else {
+                examService.save(exam);
+            }
+            model.addAttribute("msg","添加成功!");
+        }else {
+            model.addAttribute("msg","您输入的数据不合法！");
+        }
+        return "add/addSC";
+    }
 
     //删除学生信息
     @GetMapping("/deleteStudent/{id}")
     public String deleteStudent(@PathVariable("id")Long id){
-
         studentService.removeById(id);
-
         return "redirect:/dynamic_student";
     }
 

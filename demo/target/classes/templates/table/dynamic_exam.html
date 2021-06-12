@@ -25,9 +25,14 @@
         <td th:text="${exam.getGrade()}"></td>
         <label style="color: red" th:text="${msg}"></label>
         <td>
-            <a th:href="@{/deleteExam(cno=${exam.cno},sno=${exam.sno})}" type="button">删除</a>
+            <a th:href="@{/deleteExam(id=${exam.id})}" type="button">删除</a>
         </td>
     </tr>
+    <button>
+        <a th:href="@{returnDynamicStudent}">
+            返回
+        </a>
+    </button>
 <!--    <tr>
         &lt;!&ndash;跳转到增加学生界面&ndash;&gt;
         <a class="" th:href="@{addCourse.html}">
