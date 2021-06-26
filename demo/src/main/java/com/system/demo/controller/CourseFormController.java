@@ -2,9 +2,9 @@ package com.system.demo.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.system.demo.bean.Course;
-import com.system.demo.bean.Exam;
+import com.system.demo.bean.Teach;
 import com.system.demo.service.CourseService;
-import com.system.demo.service.ExamService;
+import com.system.demo.service.TeachService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,7 +20,7 @@ public class CourseFormController {
     CourseService courseService;
 
     @Autowired
-    ExamService examService;
+    TeachService teachService;
 
     //课程信息,还没加接口跳转到课程主页面！
     //显示全部课程信息:使用ModelAndView
@@ -37,10 +37,10 @@ public class CourseFormController {
     //增加课程信息：
     @PostMapping("/addCourse")
     public String addCourse(@RequestParam(value = "id",defaultValue = "-1")Long id,
-                             @RequestParam(value = "cname")String cname,
-                            @RequestParam(value = "credit")Long credit,
-                            @RequestParam(value = "weekhours")Long weekhours,
-                             Model model){
+                            @RequestParam(value = "cname",defaultValue = "-1")String cname,
+                            @RequestParam(value = "credit",defaultValue = "-1")Long credit,
+                            @RequestParam(value = "weekhours",defaultValue = "-1")Long weekhours,
+                            Model model){
         if (id>0 && id<=100){
             Course course = new Course(id,cname,credit,weekhours);
             if(courseService.getById(id)!=null){
@@ -50,7 +50,7 @@ public class CourseFormController {
                 model.addAttribute("msg","添加成功");
             }
         }else {
-            model.addAttribute("msg","id不合法!");
+            model.addAttribute("msg","输入的数据不合法!");
         }
         return "add/addCourse";
     }
@@ -73,10 +73,10 @@ public class CourseFormController {
     //更新课程信息：
     @PostMapping("/updateCourse")
     public String updateCourse(@RequestParam(value = "id",defaultValue = "-1")Long id,
-                                @RequestParam(value = "cname")String cname,
-                                @RequestParam(value = "credit")Long credit,
-                                @RequestParam(value = "weekhours")Long weekhours,
-                                Model model){
+                               @RequestParam(value = "cname")String cname,
+                               @RequestParam(value = "credit")Long credit,
+                               @RequestParam(value = "weekhours")Long weekhours,
+                               Model model){
         if(id>0 && id<=100){
             Course course = new Course(id,cname,credit,weekhours);
             boolean isUpdate = courseService.updateById(course);
@@ -94,9 +94,9 @@ public class CourseFormController {
     //删除课程信息
     @GetMapping("/deleteCourse/{id}")
     public String deleteCourse(@PathVariable("id") Long id,Model model){
-        QueryWrapper<Exam> queryWrapper = new QueryWrapper<>();
+        QueryWrapper<Teach> queryWrapper = new QueryWrapper<>();
         queryWrapper = queryWrapper.ge("cno",id);
-        List<Exam> list = examService.list(queryWrapper);
+        List<Teach> list = teachService.list(queryWrapper);
         if(list.size()!=0){
             model.addAttribute("msg","该课已有学生选修，不能删除！");
         }else{

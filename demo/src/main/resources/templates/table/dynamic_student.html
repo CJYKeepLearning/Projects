@@ -5,46 +5,98 @@
 <head>
     <title>Good Thymes Virtual Grocery</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" type="text/css" media="all"
-          href="../../css/gtvg.css" th:href="@{/css/gtvg.css}" />
+<!--    <link rel="stylesheet" type="text/css" media="all"-->
+<!--          href="../../css/gtvg.css" th:href="@{/css/gtvg.css}" />-->
+    <!-- 指定字符集 -->
+    <meta charset="utf-8">
+    <!-- 使用Edge最新的浏览器的渲染方式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- viewport视口：网页可以根据设置的宽度自动进行适配，在浏览器的内部虚拟一个容器，容器的宽度与设备的宽度相同。
+    width: 默认宽度与设备的宽度相同
+    initial-scale: 初始的缩放比，为1:1 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+
+    <!-- 1. 导入CSS的全局样式 -->
+    <!--
+    <link th:href="@{/js/advanced-datatable/css/demo_table.css}" rel="stylesheet"/>
+    -->
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- 2. jQuery导入，建议使用1.9以上的版本 -->
+    <script src="../../../../src/main/resources/static/js/jquery-2.1.0.min.js"></script>
+    <!-- 3. 导入bootstrap的js文件 -->
+    <script src="../../../../src/main/resources/static/js/bootstrap.min.js"></script>
+
+
+    <title>用户信息管理系统</title>
+
+
+    <style type="text/css">
+        td, th {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-<table>
+<div class="container">
+    <h3 style="text-align: center">学生信息列表</h3>
+    <div style="float: left;">s
+		
+		<form class="form-inline" th:action="@{/getTeachList}" method="post">
+		<tr>
+		    根据学号查询学生考试成绩:<br>
+			<div class="form-group">
+		    <label >学号</label>
+			<input type="text" name="sno" class="form-control">
+			</div>
+		    <button type="submit" class="btn btn-default">提交</button>
+		</tr>
+		</form>
+
+    </div>
+
+    <div style="float: right;margin: 5px;">
+
+
+<!--		后端测试时将这部分注释去掉，将下面的注释-->
+        <a class="btn btn-primary" th:href="@{addStudent.html}">添加学生</a>
+        <a class="btn btn-primary" th:href="@{updateStudent.html}">更新学生信息</a>
+        <a class="btn btn-primary" th:href="@{addTeach.html}">添加考试信息</a>
+
+<!--        <a class="btn btn-primary" href="../add/addStudent.html">添加学生</a>-->
+<!--        <a class="btn btn-primary" href="../update/updateStudent.html">更新学生信息</a>-->
+<!--        <a class="btn btn-primary" href="../update/updateCourse.html">添加考试信息</a>-->
+		
+    </div>
+</div>
+
+
+
+<table border="1" class="table table-bordered table-hover">
+
+
+
     <thead>
-    <tr>
-        <th>id</th>
-        <th>name</th>
+    <tr class="success">
+        <th>学号</th>
+        <th>姓名</th>
+        <th>性别</th>
+        <th>年龄</th>
         <th>删除</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="stu: ${students}">
-        <td th:text="${stu.id}"></td>
-        <td th:text="${stu.sname}"></td>
-        <td>
-            <a th:href="@{/deleteStudent/{id}(id=${stu.id})}" type="button">删除</a>
-        </td>
-    </tr>
+   <tr th:each="stu: ${students}">
+      <td th:text="${stu.id}"></td>
+       <td th:text="${stu.sname}"></td>
+       <td th:text="${stu.sex}"></td>
+       <td th:text="${stu.age}"></td>
+       <td>
+           <a th:href="@{/deleteStudent/{id}(id=${stu.id})}" type="button">删除</a>
+       </td>
+   </tr>
 
-    <form th:action="@{/getExamList}" method="post">
-    <tr>
-        根据学号查询学生考试成绩:<br>
-        sno: <input type="text" name="sno"><br>
-        <button type="submit">提交</button>
-    </tr>
-    </form>
-    <tr>
-        <!--跳转到增加学生界面-->
-        <a class="" th:href="@{addStudent.html}">
-            增加学生信息
-        </a>
-        <a class="" th:href="@{updateStudent.html}">
-            更新学生信息
-        </a>
-        <a class="" th:href="@{addSC.html}">
-            增加考试信息
-        </a>
-    </tr>
+
     </tbody>
 </table>
 </body>

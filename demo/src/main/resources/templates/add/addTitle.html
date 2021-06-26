@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Good Thymes Virtual Grocery</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" media="all"
+          href="../../css/gtvg.css" th:href="@{/css/gtvg.css}" />
+</head>
+
+<body>
+
+<form th:action="@{/addTitle}" method="post">
+    <tr>
+        titleName: <input type="text" name="titleName"><br>
+        titleWage: <input type="text" name="wage">
+        <label style="color: red" th:text="${msg}"></label><br>
+        <button type="submit">提交</button>
+    </tr>
+</form>
+<a class="" th:href="@{returnDynamicTitle}">
+    返回
+</a>
+</body>
+
+</html>

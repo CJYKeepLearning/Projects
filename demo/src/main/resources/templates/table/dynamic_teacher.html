@@ -15,6 +15,8 @@
     <tr>
         <th>id</th>
         <th>name</th>
+        <th>职称</th>
+        <th>工资</th>
         <th>删除</th>
     </tr>
     </thead>
@@ -22,15 +24,17 @@
     <tr th:each="teacher: ${teachers}">
         <td th:text="${teacher.id}"></td>
         <td th:text="${teacher.tname}"></td>
+        <td th:text="${teacher.title}"></td>
+        <td th:text="${titles.get((teacher.title)-1).getWage()}"></td>
         <td>
-            <a th:href="@{/deleteStudent/{id}(id=${teacher.id})}" type="button">删除</a>
+            <a th:href="@{/deleteTeacher/{id}(id=${teacher.id})}" type="button">删除</a>
         </td>
     </tr>
 
-    <form th:action="@{/getExamList}" method="post">
+    <form th:action="@{/getTCList}" method="post">
         <tr>
             根据教师号查询教师授课:<br>
-            sno: <input type="text" name="sno"><br>
+            tno: <input type="text" name="tno"><br>
             <button type="submit">提交</button>
         </tr>
     </form>

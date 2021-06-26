@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Good Thymes Virtual Grocery</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" media="all"
+          href="../../css/gtvg.css" th:href="@{/css/gtvg.css}" />
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>titleName</th>
+        <th>wage</th>
+        <th>删除</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="title: ${titleList}">
+        <td th:text="${title.id}"></td>
+        <td th:text="${title.getTitleName()}"></td>
+        <td th:text="${title.getWage()}"></td>
+        <td>
+            <a th:href="@{/deleteTitle/{id}(id=${title.id})}" type="button">删除</a>
+        </td>
+    </tr>
+    <label style="color: red" th:text="${msg}"></label><br>
+    <tr>
+        <!--跳转到增加学生界面-->
+        <a class="" th:href="@{addTitle.html}">
+            增加或更新职称信息
+        </a>
+    </tr>
+    </tbody>
+</table>
+</body>
+
+</html>

@@ -14,7 +14,9 @@
 <form th:action="@{/updateStudent}" method="post">
     <tr>
         id: <input type="text" name="id"><br>
-        name: <input type="text" name="name">
+        name: <input type="text" name="name"><br>
+        sex: <input type="text" name="sex"><br>
+        age: <input type="text" name="age"><br>
         <label style="color: red" th:text="${msg}"></label>
         <button type="submit">提交</button>
     </tr>

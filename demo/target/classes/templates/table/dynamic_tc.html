@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Good Thymes Virtual Grocery</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" media="all"
+          href="../../css/gtvg.css" th:href="@{/css/gtvg.css}" />
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>tno</th>
+        <th>cno</th>
+        <th>删除</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!--根据教师号查询授课的信息-->
+    <tr th:each="tc: ${list}">
+        <td th:text="${tc.tno}"></td>
+        <!--        <th th:text="${exam.getCno()}"></th>-->
+        <td th:text="${tc.cno}"></td>
+        <td>
+            <a th:href="@{/deleteExam(id=${tc.cno})}" type="button">删除</a>
+        </td>
+    </tr>
+    <button>
+        <a th:href="@{returnDynamicTeacher}">
+            返回
+        </a>
+    </button>
+    <!--    <tr>
+            &lt;!&ndash;跳转到增加学生界面&ndash;&gt;
+            <a class="" th:href="@{addCourse.html}">
+                增加课程信息
+            </a>
+            <a class="" th:href="@{updateCourse.html}">
+                更新课程信息
+            </a>
+        </tr>-->
+    </tbody>
+</table>
+</body>
+
+</html>

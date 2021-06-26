@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class Teacher {
     private Long id;
     private String tname;
+    private String title;
 }

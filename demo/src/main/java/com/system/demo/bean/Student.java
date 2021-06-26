@@ -12,4 +12,6 @@ import lombok.NoArgsConstructor;
 public class Student {
     private Long id;
     private String sname;
+    private String sex;
+    private Long age;
 }
