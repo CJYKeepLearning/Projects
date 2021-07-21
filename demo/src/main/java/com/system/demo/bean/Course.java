@@ -8,8 +8,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class Course {
-    private Long id;
+    private String id;
     private String cname;
     private Long credit;
     private Long weekhours;
+    private String cType;
 }

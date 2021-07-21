@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Good Thymes Virtual Grocery</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" media="all"
+          href="../../css/gtvg.css" th:href="@{/css/gtvg.css}" />
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- 2. jQuery导入，建议使用1.9以上的版本 -->
+    <script src="../../static/js/jquery-2.1.0.min.js"></script>
+    <!-- 3. 导入bootstrap的js文件 -->
+    <script src="../../static/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<div class="container">
+    <h3 style="text-align: center">被赡养人信息列表</h3>
+    <a class="btn btn-primary" th:href="@{addSupport.html}">添加被赡养人信息</a>
+</div>
+
+<table class="table table-bordered table-hover">
+    <thead>
+    <tr class="success">
+        <th>pno</th>
+        <th>tno</th>
+        <th>relationship</th>
+        <th>删除</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="provide: ${ProvideList}">
+        <td th:text="${provide.getName()}"></td>
+        <td th:text="${provide.getTId()}"></td>
+        <td th:text="${provide.getRelation()}"></td>
+        <td>
+            <a th:href="@{/deleteProvide/{id}(id=${provide.getTId()})}" type="button">删除</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+
+</html>

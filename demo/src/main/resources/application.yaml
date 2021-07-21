@@ -1,10 +1,9 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/system
+    url: jdbc:mysql://localhost:3306/system?serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: "123456"
     driver-class-name: com.mysql.cj.jdbc.Driver
-
 # 配置mybatis规则
 mybatis:
   config-location: classpath:mybatis/mybatis-config.xml  #全局配置文件位置

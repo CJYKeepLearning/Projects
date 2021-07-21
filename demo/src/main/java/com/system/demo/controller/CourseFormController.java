@@ -1,10 +1,8 @@
 package com.system.demo.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.system.demo.bean.Course;
-import com.system.demo.bean.Teach;
-import com.system.demo.service.CourseService;
-import com.system.demo.service.TeachService;
+import com.system.demo.bean.*;
+import com.system.demo.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +20,15 @@ public class CourseFormController {
     @Autowired
     TeachService teachService;
 
+    @Autowired
+    CourseSpService courseSpService;
+
+    @Autowired
+    ClassRoomService classRoomService;
+
+    @Autowired
+    StudentService studentService;
+
     //课程信息,还没加接口跳转到课程主页面！
     //显示全部课程信息:使用ModelAndView
     @GetMapping("/dynamic_course")
@@ -36,22 +43,48 @@ public class CourseFormController {
 
     //增加课程信息：
     @PostMapping("/addCourse")
-    public String addCourse(@RequestParam(value = "id",defaultValue = "-1")Long id,
+    public String addCourse(@RequestParam(value = "id",defaultValue = "-1")String id,
                             @RequestParam(value = "cname",defaultValue = "-1")String cname,
                             @RequestParam(value = "credit",defaultValue = "-1")Long credit,
                             @RequestParam(value = "weekhours",defaultValue = "-1")Long weekhours,
-                            Model model){
-        if (id>0 && id<=100){
-            Course course = new Course(id,cname,credit,weekhours);
+                            @RequestParam(value = "cType",defaultValue = "-1")String cType,
+                             Model model){
+            Course course = new Course();
+            course.setId(id);
+            course.setCname(cname);
+            course.setCredit(credit);
+            course.setWeekhours(weekhours);
+            course.setCType(cType);
             if(courseService.getById(id)!=null){
                 model.addAttribute("msg","id已经存在!添加失败");
             }else{
                 courseService.save(course);
                 model.addAttribute("msg","添加成功");
             }
-        }else {
-            model.addAttribute("msg","输入的数据不合法!");
-        }
+/*            if (cType.equals("必修课")){
+                QueryWrapper<CourseSp> queryWrapper = new QueryWrapper();
+                queryWrapper = queryWrapper.ge("cno",id);
+                List<CourseSp> courseSpList = courseSpService.list(queryWrapper);
+                for (CourseSp list:courseSpList) {
+                    Long sp = list.getSp();
+                    QueryWrapper<ClassRoom> classRoomQueryWrapper = new QueryWrapper<>();
+                    //得到对应的班级
+                    classRoomQueryWrapper = classRoomQueryWrapper.ge("sp_no",sp);
+                    List<ClassRoom> classRooms = classRoomService.list(classRoomQueryWrapper);
+                    for (ClassRoom classRoom:classRooms){
+                        Long classRoomId = classRoom.getId();
+                        QueryWrapper<Student> studentQueryWrapper = new QueryWrapper<>();
+                        List<Student> students = studentService.list(studentQueryWrapper);
+                        for (Student student:students
+                        ) {
+                            Teach teach = new Teach();
+                            teach.setSno(student.getId());
+                            teach.setCno(id);
+                            teachService.save(teach);
+                        }
+                    }
+                }
+            }*/
         return "add/addCourse";
     }
 
@@ -72,22 +105,22 @@ public class CourseFormController {
     }
     //更新课程信息：
     @PostMapping("/updateCourse")
-    public String updateCourse(@RequestParam(value = "id",defaultValue = "-1")Long id,
-                               @RequestParam(value = "cname")String cname,
-                               @RequestParam(value = "credit")Long credit,
-                               @RequestParam(value = "weekhours")Long weekhours,
-                               Model model){
-        if(id>0 && id<=100){
-            Course course = new Course(id,cname,credit,weekhours);
+    public String updateCourse(@RequestParam(value = "id",defaultValue = "-1")String id,
+                                @RequestParam(value = "cname")String cname,
+                                @RequestParam(value = "credit")Long credit,
+                                @RequestParam(value = "weekhours")Long weekhours,
+                                Model model){
+            Course course = new Course();
+            course.setId(id);
+            course.setCname(cname);
+            course.setCredit(credit);
+            course.setWeekhours(weekhours);
             boolean isUpdate = courseService.updateById(course);
             if (isUpdate){
                 model.addAttribute("msg","更新成功");
             }else {
                 model.addAttribute("msg","id不存在！更新失败");
             }
-        }else{
-            model.addAttribute("msg","id不合法!请重新提交!");
-        }
         return "update/updateCourse";
     }
 

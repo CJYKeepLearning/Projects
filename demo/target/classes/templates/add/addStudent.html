@@ -17,25 +17,38 @@
 </head>
 
 <body>
-<div class="container">
-<form th:action="@{/addStudent}" method="post">
-    <div class="form-group">
-        <label th:for="id">学号：</label><input type="text" name="id" id="id"><br>
+<div class="container" style="width: 400px">
+    <h3 style="text-align: center">添加学生信息</h3>
+    <div style="margin: 20px;text-align: center">
 
-        <label th:for="name">姓名</label><input type="text" name="name" id="name"><br>
-<!--        <label th:for="sex">性别</label><input type="text" name="sex" id="sex"><br>-->
-        <input type="radio" name="sex" value="男" checked="checked"/>男
-        <input type="radio" name="sex" value="女"/>女
+        <form th:action="@{/addStudent}" method="post" >
+            <div class="form-group">
+                <label th:for="id">学号：</label><input type="text" name="id" id="id"><br>
+            </div>
+            <div class="form-group">
+                <label th:for="name">姓名：</label><input type="text" name="name" id="name"><br>
+            </div>
+            <div class="form-group">
+                <label>性别：</label>
+                <input type="radio" name="sex" value="男" checked="checked"/>&nbsp;男
+                <input type="radio" name="sex" value="女"/> &nbsp;女
+            </div>
+            <div class="form-group">
+                <label th:for="age">年龄：</label> <input type="text" name="age" id="age"><br>
 
 
-        <label th:for="age">年龄</label> <input type="text" name="age" id="age"><br>
-        <label style="color: red" th:text="${msg}"></label><br>
-    <button class="btn btn-primary" type="submit">提交</button>
+            </div>
+            <div class="form-group">
+                <label style="color: red" th:text="${msg}"></label>
+            </div>
+            <button class="btn btn-primary" type="submit">提交</button>
+            <a class="btn btn-primary" th:href="@{returnDynamicStudent}" >
+                返回
+            </a>
+        </form>
+
+
     </div>
-</form>
-<a class="" th:href="@{returnDynamicStudent}">
-    返回
-</a>
 </div>
 </body>
 

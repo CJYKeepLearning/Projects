@@ -11,4 +11,6 @@ public class Title {
     private Long id;
     private String titleName;
     private Long wage;
+    private Long accumulationFund;
+    private Long oldPension;
 }

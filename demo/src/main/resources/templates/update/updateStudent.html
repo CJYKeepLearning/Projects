@@ -7,26 +7,48 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" type="text/css" media="all"
           href="../../css/gtvg.css" th:href="@{/css/gtvg.css}" />
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- 2. jQuery导入，建议使用1.9以上的版本 -->
+    <script src="../../static/js/jquery-2.1.0.min.js"></script>
+    <!-- 3. 导入bootstrap的js文件 -->
+    <script src="../../static/js/bootstrap.min.js"></script>
 </head>
 
 <body>
+<div class="container">
+    <div style="text-align: center">
+        <br><br>
 
-<form th:action="@{/updateStudent}" method="post">
-    <tr>
-        id: <input type="text" name="id"><br>
-        name: <input type="text" name="name"><br>
-        sex: <input type="text" name="sex"><br>
-        age: <input type="text" name="age"><br>
-        <label style="color: red" th:text="${msg}"></label>
-        <button type="submit">提交</button>
-    </tr>
-</form>
-<a class="" th:href="@{returnDynamicStudent}">
-    <button>
-        返回
-    </button>
-</a>
+        <form th:action="@{/updateStudent}" method="post">
+            <tr>
 
+                <div class="form-group" th:if="${id==0}">
+                    <label>学号：</label> <input type="text" name="id">
+                </div>
+
+                <div class="form-group">
+                    <label>姓名：</label>  <input type="text" name="name">
+                </div>
+                <div class="form-group">
+                    <label>性别：</label>
+                    <input type="radio" name="sex" value="男" checked="checked"/>&nbsp;男
+                    <input type="radio" name="sex" value="女"/> &nbsp;女
+                </div>
+                <div class="form-group">
+                    <label>年龄：</label>  <input type="text" name="age">
+                </div>
+                <div class="form-group">
+                    <label>班级：</label>  <input type="text" name="classNo">
+                </div>
+
+                <label style="color: red" th:text="${msg}"></label>
+                <button type="submit" class="btn btn-primary">提交</button>
+                <a class="btn btn-primary" th:href="@{returnDynamicStudent}">返回</a>
+            </tr>
+        </form>
+
+    </div>
+</div>
 </body>
 
 </html>

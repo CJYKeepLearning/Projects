@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- 2. jQuery导入，建议使用1.9以上的版本 -->
+    <script src="../../static/js/jquery-2.1.0.min.js"></script>
+    <!-- 3. 导入bootstrap的js文件 -->
+    <script src="../../static/js/bootstrap.min.js"></script>
+    <title>班级查询</title>
+</head>
+
+
+<body>
+<div class="container">
+    <h3 style="text-align: center">教室信息列表</h3>
+<table class="table table-bordered table-hover">
+    <tread>
+        <tr class="success">
+            <th>id</th>
+            <th>peoplecount</th>
+            <th>spNo</th>
+        </tr>
+    </tread>
+    <tbody>
+    <tr th:each="class:${classList}">
+    <td th:text="${class.id}"></td>
+    <td th:text="${class.peopleCount}"></td>
+        <td th:text="${class.spNo}"></td>
+    </tr>
+    </tbody>
+
+
+</table>
+</div>
+
+</body>
+</html>

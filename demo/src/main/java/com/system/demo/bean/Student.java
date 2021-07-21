@@ -10,8 +10,9 @@ import lombok.NoArgsConstructor;
 @Data
 //@TableName("xxx"):xxx中写关系表中对应的表名
 public class Student {
-    private Long id;
+    private String id;
     private String sname;
     private String sex;
     private Long age;
+    private Long classNo;
 }

@@ -15,6 +15,7 @@
         <th>id</th>
         <th>titleName</th>
         <th>wage</th>
+        <th>accumulationFund</th>
         <th>删除</th>
     </tr>
     </thead>
@@ -23,6 +24,7 @@
         <td th:text="${title.id}"></td>
         <td th:text="${title.getTitleName()}"></td>
         <td th:text="${title.getWage()}"></td>
+        <td th:text="${title.getAccumulationFund()}"></td>
         <td>
             <a th:href="@{/deleteTitle/{id}(id=${title.id})}" type="button">删除</a>
         </td>

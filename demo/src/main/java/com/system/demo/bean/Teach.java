@@ -14,8 +14,8 @@ import lombok.NoArgsConstructor;
 public class Teach {
     @TableId(type = IdType.AUTO)
     private Long id;
-    private Long sno;
-    private Long cno;
+    private String sno;
+    private String cno;
     private Long grade;
-    private Long tno;
+    private String tno;
 }

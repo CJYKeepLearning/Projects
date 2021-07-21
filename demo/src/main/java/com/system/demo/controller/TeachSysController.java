@@ -12,4 +12,6 @@ public class TeachSysController {
         modelAndView.setViewName("pages/teachSys");
         return modelAndView;
     }
+
+
 }

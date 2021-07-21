@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.sql.Time;
 import java.util.List;
 
 @Controller
@@ -42,13 +43,20 @@ public class TCFormController {
     }
     @PostMapping("addTC")
     public ModelAndView addTC(@RequestParam("tno")Long tno,@RequestParam("cno")Long cno,
+                              @RequestParam("grade")Long grade,@RequestParam("time") Time time,
+                              @RequestParam("classroom")Long classroom,
                               ModelAndView modelAndView){
         QueryWrapper<TC> queryWrapper = new QueryWrapper<>();
         queryWrapper = queryWrapper.ge("tno",tno);
         queryWrapper = queryWrapper.ge("cno",cno);
         List<TC> list = tcService.list(queryWrapper);
         if (teacherService.getById(tno)!=null && courseService.getById(cno)!=null &&  list.size()==0){
-            TC tc = new TC(null,tno,cno);
+            TC tc = new TC();
+            tc.setClassroom(classroom);
+            tc.setCno(cno);
+            tc.setGrade(grade);
+            tc.setTime(time);
+            tc.setTno(tno);
             tcService.save(tc);
             modelAndView.addObject("msg","添加成功！");
         }else {

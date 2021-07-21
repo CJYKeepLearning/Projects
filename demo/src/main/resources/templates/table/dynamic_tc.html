@@ -7,13 +7,17 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" type="text/css" media="all"
           href="../../css/gtvg.css" th:href="@{/css/gtvg.css}" />
+
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <script src="../../static/js/jquery-2.1.0.min.js"></script>
+    <script src="../../static/js/bootstrap.min.js"></script>
 </head>
 <body>
-<table>
+<table border="1" class="table table-bordered table-hover">
     <thead>
-    <tr>
-        <th>tno</th>
-        <th>cno</th>
+    <tr class="success">
+        <th>教师号</th>
+        <th>课程号</th>
         <th>删除</th>
     </tr>
     </thead>
@@ -27,11 +31,7 @@
             <a th:href="@{/deleteExam(id=${tc.cno})}" type="button">删除</a>
         </td>
     </tr>
-    <button>
-        <a th:href="@{returnDynamicTeacher}">
-            返回
-        </a>
-    </button>
+
     <!--    <tr>
             &lt;!&ndash;跳转到增加学生界面&ndash;&gt;
             <a class="" th:href="@{addCourse.html}">
@@ -43,6 +43,11 @@
         </tr>-->
     </tbody>
 </table>
+
+    <a class="btn btn-primary" th:href="@{returnDynamicTeacher}">
+        返回
+    </a>
+
 </body>
 
 </html>

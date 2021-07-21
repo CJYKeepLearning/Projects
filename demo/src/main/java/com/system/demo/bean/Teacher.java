@@ -1,5 +1,6 @@
 package com.system.demo.bean;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,7 +9,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class Teacher {
-    private Long id;
+    @TableId
+    private String id;
     private String tname;
-    private String title;
+    private Long title;
+    private Long email;
+    private String sex;
+    private String phone;
+    private String city;
+    private String area;
+    private String code;
 }

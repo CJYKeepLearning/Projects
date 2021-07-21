@@ -7,14 +7,19 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" type="text/css" media="all"
           href="../../css/gtvg.css" th:href="@{/css/gtvg.css}" />
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- 2. jQuery导入，建议使用1.9以上的版本 -->
+    <script src="../../static/js/jquery-2.1.0.min.js"></script>
+    <!-- 3. 导入bootstrap的js文件 -->
+    <script src="../../static/js/bootstrap.min.js"></script>
 </head>
 <body>
-<table>
+<table border="1" class="table table-bordered table-hover">
     <thead>
-    <tr>
-        <th>cno</th>
-        <th>grade</th>
-        <th>tno</th>
+    <tr class="success">
+        <th>课程号</th>
+        <th>成绩</th>
+        <th>教师号</th>
         <th>删除</th>
     </tr>
     </thead>
@@ -22,30 +27,20 @@
     <!--根据学号查询讲授的信息-->
     <tr th:each="teach: ${teachs}">
         <td th:text="${teach.cno}"></td>
-<!--        <th th:text="${exam.getCno()}"></th>-->
-        <td th:text="${teach.getGrade()}"></td>
-        <td th:text="${teach.getTno()}"></td>
+        <td th:text="${teach.grade}"></td>
+        <td th:text="${teach.tno}"></td>
         <label style="color: red" th:text="${msg}"></label>
         <td>
-            <a th:href="@{/deleteTeach/{cno}/{sno}(cno=${teach.cno},sno=${teach.sno})}" type="button">删除</a>
+            <a th:href="@{/deleteTeach(cno=${teach.cno},sno=${teach.sno})}" type="button">删除</a>
         </td>
     </tr>
-    <button>
-        <a th:href="@{returnDynamicStudent}">
-            返回
-        </a>
-    </button>
-<!--    <tr>
-        &lt;!&ndash;跳转到增加学生界面&ndash;&gt;
-        <a class="" th:href="@{addCourse.html}">
-            增加课程信息
-        </a>
-        <a class="" th:href="@{updateCourse.html}">
-            更新课程信息
-        </a>
-    </tr>-->
+
     </tbody>
+
 </table>
+    <a class="btn btn-primary" th:href="@{returnDynamicStudent}">
+        返回
+    </a>
 </body>
 
 </html>

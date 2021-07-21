@@ -7,25 +7,45 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" type="text/css" media="all"
           href="../../css/gtvg.css" th:href="@{/css/gtvg.css}" />
+    <style>
+        .td_left{
+            width: 100px;
+            text-align: right;
+            height: 45px;
+        }
+        .td_right{
+            padding-left: 50px;
+        }
+    </style>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <script src="../../../../src/main/resources/static/js/jquery-2.1.0.min.js"></script>
+    <script src="../../../../src/main/resources/static/js/bootstrap.min.js"></script>
 </head>
 
 <body>
+<div class="container" style="width: 400px">
+    <div class="" style="margin: 20px; text-align: center">
+        <form th:action="@{/updateCourse}" method="post">
+            <tr>
+                <div class="form-group"><td class="td_left"> 课程号: </td>
+                    <td class="td_right"><input type="text" name="id"></td> </div>
+                <div class="form-group"><td class="td_left"> 课程名:</td>
+                    <td class="td_right"><input type="text" name="cname"></td></div>
+                <div class="form-group"><td class="td_left"> 学分: </td>
+                    <td class="td_right"><input type="text" name="credit"></td></div>
+                <div class="form-group"><td class="td_left"> 周学时:</td>
+                    <td class="td_right"><input type="text" name="weekhours"></td></div>
 
-<form th:action="@{/updateCourse}" method="post">
-    <tr>
-        id: <input type="text" name="id"><br>
-        cname: <input type="text" name="cname">
-        credit: <input type="text" name="credit">
-        weekhours: <input type="text" name="weekhours">
-        <label style="color: red" th:text="${msg}"></label>
-        <button type="submit">提交</button>
-    </tr>
-</form>
-<a class="" th:href="@{returnDynamicCourse}">
-    <button>
-        返回
-    </button>
-</a>
+                <label style="color: red" th:text="${msg}"></label>
+                <button type="submit" class="btn btn-primary">提交</button>
+                <a class="btn btn-primary" th:href="@{returnDynamicCourse}">
+                    返回
+                </a>
+            </tr>
+        </form>
+    </div>
+</div>
+
 
 </body>
 

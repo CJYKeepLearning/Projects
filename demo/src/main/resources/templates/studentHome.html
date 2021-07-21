@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!--<html lang="en">-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <!--    <link rel="stylesheet" type="text/css" href="../static/css/home.css" />-->
+    <link rel="stylesheet" type="text/css" th:href="@{css/home.css}" />
+</head>
+<body>
+<div class="rg_layout">
+    <div class="rg_up">
+        <div class="sign">
+            <img th:src="@{/img/xpu.png}" style="border-radius:50%;"/>
+            <tr>XXX管理系统</tr>
+        </div>
+    </div>
+
+    <div style="float: right;margin: 5px;">
+
+        <a class="btn btn-primary" th:href="@{/updateSelf.html(id=${id})}">修改个人信息</a>
+        <a class="btn btn-primary" th:href="@{/addTeachSelf.html(id=${id})}">添加选课信息</a>
+
+    </div>
+
+</div>
+</body>
+</html>

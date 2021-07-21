@@ -26,12 +26,6 @@ public class TeachFormController {
     @Autowired
     TCService tcService;
 
-    /*    //删除某人的考试记录
-        @GetMapping("/deleteTeach")
-        public String deleteTeach(@RequestParam(value = "id")Long id,Model model){
-            teachService.removeById(id);
-            return "table/dynamic_teach";
-        }*/
     //根据sno得到个人的选课信息
     @PostMapping("/getTeachList")
     public ModelAndView getTeachList(@RequestParam(value = "sno")Long sno, ModelAndView model){
@@ -47,16 +41,16 @@ public class TeachFormController {
         return "add/addTeach";
     }
     @PostMapping("/addTeach")
-    public String addTeach(@RequestParam(value = "sno",defaultValue = "-1")Long sno,
-                           @RequestParam(value = "cno",defaultValue = "-1")Long cno,
+    public String addTeach(@RequestParam(value = "sno",defaultValue = "-1")String sno,
+                           @RequestParam(value = "cno",defaultValue = "-1")String cno,
                            @RequestParam(value = "grade",defaultValue = "-1")Long grade,
-                           @RequestParam(value = "tno",defaultValue = "-1")Long tno, Model model) {
-        if (sno == -1 || cno == -1 || grade == -1 ||studentService.getById(sno) == null && courseService.getById(cno) == null) {
+                           @RequestParam(value = "tno",defaultValue = "-1")String tno, Model model) {
+        if (sno.equals("-1") || cno.equals("-1")  || grade == -1 ||studentService.getById(sno) == null && courseService.getById(cno) == null) {
             model.addAttribute("msg", "您输入的数据不合法！");
             return "add/addTeach";
         }
         //tno为空
-        if (tno == -1) {
+        if (!tno.equals("-1")) {
             Teach teach = new Teach(null, sno, cno, grade, null);
             QueryWrapper<Teach> queryWrapper = new QueryWrapper<>();
             queryWrapper = queryWrapper.ge("sno", sno);
@@ -82,7 +76,11 @@ public class TeachFormController {
             List<TC> list = tcService.list(queryWrapper);
             //讲授课程
             if (list.size() != 0) {
-                Teach teach = new Teach(null, sno, cno, grade, tno);
+                Teach teach = new Teach();
+                teach.setSno(sno);
+                teach.setCno(cno);
+                teach.setGrade(grade);
+                teach.setTno(tno);
                 QueryWrapper<Teach> teachQueryWrapper = new QueryWrapper<>();
                 teachQueryWrapper = teachQueryWrapper.ge("sno", sno);
                 //sno相同
@@ -106,18 +104,40 @@ public class TeachFormController {
         }
         return "add/addTeach";
     }
-    @RequestMapping("/deleteTeach/{cno}/{sno}")
-    public String deleteTeach(@PathVariable("cno")Long cno,
-                              @PathVariable("sno")Long sno,Model model){
+    @GetMapping("/deleteTeach")
+    public ModelAndView deleteTeach(@RequestParam("cno")Long cno,
+                                    @RequestParam("sno")Long sno,ModelAndView modelAndView){
         QueryWrapper<Teach> teachQueryWrapper = new QueryWrapper<>();
         teachQueryWrapper = teachQueryWrapper.ge("sno",sno);
         teachQueryWrapper = teachQueryWrapper.ge("cno",cno);
         Long id = teachService.list(teachQueryWrapper).get(0).getId();
         teachService.removeById(id);
-        QueryWrapper<Teach> teachQueryWrapper2 = new QueryWrapper<>();
-        teachQueryWrapper2 = teachQueryWrapper2.ge("sno",sno);
-        List<Teach> list = teachService.list(teachQueryWrapper2);
-        model.addAttribute("teachs",list);
-        return "table/dynamic_teach";
+        teachQueryWrapper = new QueryWrapper<>();
+        teachQueryWrapper = teachQueryWrapper.ge("sno",sno);
+        List list = teachService.list(teachQueryWrapper);
+        modelAndView.addObject("teachs",list);
+        modelAndView.setViewName("table/dynamic_teach");
+        return modelAndView;
+    }
+    @RequestMapping("/addTeachSelf.html{id}")
+    public ModelAndView addTeachSelfHTML(ModelAndView modelAndView,@PathVariable("id")String id){
+        modelAndView.setViewName("add/addTeachSelf");
+        modelAndView.addObject("id",id);
+        return modelAndView;
+    }
+    @PostMapping("addTeachSelf/{id}")
+    public ModelAndView addTeachSelf(@PathVariable(value = "id",required = false)String id,
+                                    @RequestParam(value = "cno")String cno,
+                                    @RequestParam(value = "grade")Long grade,
+                                    @RequestParam(value = "tno")String tno, ModelAndView model){
+        Teach teach = new Teach();
+        teach.setCno(cno);
+        teach.setSno(id);
+        teach.setGrade(grade);
+        teach.setTno(tno);
+        teachService.save(teach);
+        model.setViewName("add/addTeachSelf");
+        model.addObject("id",id);
+        return model;
     }
 }

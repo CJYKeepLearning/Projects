@@ -7,41 +7,53 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" type="text/css" media="all"
           href="../../css/gtvg.css" th:href="@{/css/gtvg.css}" />
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- 2. jQuery导入，建议使用1.9以上的版本 -->
+    <script src="../../static/js/jquery-2.1.0.min.js"></script>
+    <!-- 3. 导入bootstrap的js文件 -->
+    <script src="../../static/js/bootstrap.min.js"></script>
 </head>
 <body>
-<table>
-    <thead>
-    <tr>
-        <th>id</th>
-        <th>cname</th>
-        <th>credit</th>
-        <th>weekhours</th>
-        <th>删除</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="cou: ${courses}">
-        <td th:text="${cou.id}"></td>
-        <td th:text="${cou.getCname()}"></td>
-        <td th:text="${cou.getCredit()}"></td>
-        <td th:text="${cou.getWeekhours()}"></td>
-        <td>
-            <a th:href="@{/deleteCourse/{id}(id=${cou.id})}" type="button">删除</a>
-            <!--点击才会有！，没加此判断-->
-        </td>
-    </tr>
-    <label style="color: red" th:text="${msg}"></label><br>
-    <tr>
-        <!--跳转到增加学生界面-->
-        <a class="" th:href="@{addCourse.html}">
+<div class="container">
+    <h3 style="text-align: center">课程信息列表</h3>
+    <div style="float: right;margin: 5px;">
+
+        <a class="btn btn-primary" th:href="@{addCourse.html}">
             增加课程信息
         </a>
-        <a class="" th:href="@{updateCourse.html}">
+        <a class="btn btn-primary" th:href="@{updateCourse.html}">
             更新课程信息
         </a>
-    </tr>
-    </tbody>
-</table>
+    </div>
+    <table border="1" class="table table-bordered table-hover">
+
+        <thead>
+        <tr class="success">
+            <th>课程号</th>
+            <th>课程名</th>
+            <th>学分</th>
+            <th>周学时</th>
+            <th>总学时</th>
+            <th>课程类型</th>
+            <th>删除</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="cou: ${courses}">
+            <td th:text="${cou.id}"></td>
+            <td th:text="${cou.getCname()}"></td>
+            <td th:text="${cou.getCredit()}"></td>
+            <td th:text="${cou.getWeekhours()}"></td>
+            <td th:text="${cou.getWeekhours()*20}"></td>
+            <td th:text="${cou.getCType()}"></td>
+            <td>
+                <a th:href="@{/deleteCourse/{id}(id=${cou.id})}" type="button">删除</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+</div>
 </body>
 
 </html>

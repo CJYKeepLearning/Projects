@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- 2. jQuery导入，建议使用1.9以上的版本 -->
+    <script src="../../static/js/jquery-2.1.0.min.js"></script>
+    <!-- 3. 导入bootstrap的js文件 -->
+    <script src="../../static/js/bootstrap.min.js"></script>
+    <title>专业查询</title>
+</head>
+
+
+<body>
+<div class="container">
+    <h3 style="text-align: center">专业信息列表</h3>
+    <table border="1" class="table table-bordered table-hover">
+    <tread>
+        <tr class="success">
+            <th>id</th>
+            <th>spname</th>
+        </tr>
+    </tread>
+    <tbody>
+    <tbody>
+    <tr th:each="sp:${specialtyList}">
+        <td th:text="${sp.id}"></td>
+        <td th:text="${sp.spName}"></td>
+    </tr>
+    </tbody>
+
+
+</table>
+</div>
+
+</body>
+</html>
