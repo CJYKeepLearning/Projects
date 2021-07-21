@@ -36,6 +36,7 @@ public class GithubProvider {
 
     public GithubUser getUser(String accessToken){
         OkHttpClient client = new OkHttpClient();
+        //构建请求
         Request request = new Request.Builder()
                 .url("https://api.github.com/user")
                 .header("Authorization","token "+accessToken)
