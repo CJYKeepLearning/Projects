@@ -1,5 +1,6 @@
 package com.foling.community.controller;
 
+import com.foling.community.dto.PaginationDTO;
 import com.foling.community.dto.QuestionDTO;
 import com.foling.community.mapper.QuestionMapper;
 import com.foling.community.mapper.UserMapper;
@@ -26,7 +27,10 @@ public class IndexController {
     private QuestionService questionService;
     @GetMapping("/")
     public String index(HttpServletRequest request,
-                        Model model) {
+                        Model model,
+                        @RequestParam(name = "page",defaultValue = "1")Integer page,
+                        @RequestParam(name = "size",defaultValue = "5")Integer size) {
+        //检测是否登录
         Cookie[] cookies = request.getCookies();
         if (cookies != null){
             for (Cookie cookie : cookies) {
@@ -40,8 +44,9 @@ public class IndexController {
                 }
             }
         }
-        List<QuestionDTO> questionList = questionService.list();
-        model.addAttribute("questions",questionList);
+
+        PaginationDTO paginationDTO = questionService.list(page,size);
+        model.addAttribute("paginationDTO",paginationDTO);
         return "index";
     }
 }

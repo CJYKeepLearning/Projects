@@ -1,5 +1,6 @@
 package com.foling.community.service;
 
+import com.foling.community.dto.PaginationDTO;
 import com.foling.community.dto.QuestionDTO;
 import com.foling.community.mapper.QuestionMapper;
 import com.foling.community.mapper.UserMapper;
@@ -19,9 +20,21 @@ public class QuestionService {
 
     @Autowired
     private UserMapper userMapper;
-    public List<QuestionDTO> list(){
-        List<Question> questions = questionMapper.list();
+    public PaginationDTO list(Integer page, Integer size){
+        Integer totalCount = questionMapper.count();
+        Integer totalPage= (totalCount + size -1 ) / size;
+
+        if (page < 1)
+            page = 1;
+        if(page > totalPage)
+            page = totalPage;
+
+        Integer offset = size*(page-1);
+        List<Question> questions = questionMapper.list(offset,size);
         List<QuestionDTO> questionDTOList = new ArrayList<>();
+
+        //页面数据
+        PaginationDTO paginationDTO = new PaginationDTO();
         for (Question question:questions
              ) {
            User user = userMapper.findById(question.getCreator());
@@ -31,6 +44,11 @@ public class QuestionService {
             BeanUtils.copyProperties(question,questionDTO);
             questionDTOList.add(questionDTO);
         }
-        return questionDTOList;
+
+        paginationDTO.setQuestions(questionDTOList);
+
+        paginationDTO.setPagination(totalCount,page,size);
+
+        return paginationDTO;
     }
 }
