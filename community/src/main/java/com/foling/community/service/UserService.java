@@ -2,8 +2,11 @@ package com.foling.community.service;
 
 import com.foling.community.mapper.UserMapper;
 import com.foling.community.model.User;
+import com.foling.community.model.UserExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UserService {
@@ -12,19 +15,30 @@ public class UserService {
 
 
     public void createOrUpdate(User user) {
-        User dbUser = userMapper.findByAccountId(user.getAccountId());
-        if (dbUser == null){
+
+        UserExample userExample = new UserExample();
+        userExample.createCriteria()
+                .andAccountIdEqualTo(user.getAccountId());
+        List<User> users = userMapper.selectByExample(userExample);
+
+        if (users.size() == 0){
+            User dbUser = users.get(0);
             //插入
-            user.setGmtCreate(String.valueOf(System.currentTimeMillis()));
+            user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
             userMapper.insert(user);
         }else {
+            User dbUser = users.get(0);
+            User updateUser = new User();
             //更新
-            dbUser.setAvatarUrl(user.getAvatarUrl());
-            dbUser.setName(user.getName());
-            dbUser.setToken(user.getToken());
-            dbUser.setGmtModified(String.valueOf(System.currentTimeMillis()));
-            userMapper.update(dbUser);
+            updateUser.setAvatarUrl(user.getAvatarUrl());
+            updateUser.setName(user.getName());
+            updateUser.setToken(user.getToken());
+            updateUser.setGmtModified(System.currentTimeMillis());
+            UserExample example = new UserExample();
+            example.createCriteria()
+                    .andIdEqualTo(dbUser.getId());
+            userMapper.updateByExampleSelective(updateUser,example);
         }
     }
 }

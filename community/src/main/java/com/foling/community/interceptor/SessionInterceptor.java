@@ -17,7 +17,7 @@ public class SessionInterceptor implements HandlerInterceptor {
     private UserMapper userMapper;
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        Cookie[] cookies = request.getCookies();
+/*        Cookie[] cookies = request.getCookies();
         User user = new User();
         if (cookies != null){
             for (Cookie cookie : cookies) {
@@ -30,7 +30,7 @@ public class SessionInterceptor implements HandlerInterceptor {
                     break;
                 }
             }
-        }
+        }*/
         return true;
     }
 

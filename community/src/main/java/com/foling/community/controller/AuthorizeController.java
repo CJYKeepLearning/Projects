@@ -62,6 +62,7 @@ public class AuthorizeController {
             user.setName(githubUser.getName());
             user.setAccountId(String.valueOf(githubUser.getId()));
             user.setAvatarUrl(githubUser.getAvatarUrl());
+
             userService.createOrUpdate(user);
             //user存放到数据库中
             userMapper.insert(user);
