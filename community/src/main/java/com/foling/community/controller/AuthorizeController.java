@@ -5,6 +5,7 @@ import com.foling.community.dto.GithubUser;
 import com.foling.community.mapper.UserMapper;
 import com.foling.community.model.User;
 import com.foling.community.provider.GithubProvider;
+import com.foling.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -23,6 +24,9 @@ public class AuthorizeController {
 
     @Autowired
     private GithubProvider githubProvider;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     UserMapper userMapper;
@@ -49,16 +53,16 @@ public class AuthorizeController {
         accessTokenDTO.setClient_secret(clientSecret);
         String accessToken = githubProvider.getAccessToken(accessTokenDTO);
         GithubUser githubUser = githubProvider.getUser(accessToken);
-        if (githubUser != null){
+
+        if (githubUser != null && githubUser.getId()!=null){
             User user = new User();
             //token代替session
             String token = UUID.randomUUID().toString();
             user.setToken(token);
             user.setName(githubUser.getName());
             user.setAccountId(String.valueOf(githubUser.getId()));
-            user.setGmtCreate(String.valueOf(System.currentTimeMillis()));
-            user.setGmtModified(user.getGmtCreate());
             user.setAvatarUrl(githubUser.getAvatarUrl());
+            userService.createOrUpdate(user);
             //user存放到数据库中
             userMapper.insert(user);
             //记录登陆状态
@@ -70,6 +74,15 @@ public class AuthorizeController {
             //登陆失败，重新登陆
             return "redirect:/";
         }
+    }
 
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request,
+                         HttpServletResponse response){
+        request.getSession().removeAttribute("user");
+        Cookie cookie = new Cookie("token",null);
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+        return "redirect:/";
     }
 }

@@ -30,20 +30,8 @@ public class IndexController {
                         Model model,
                         @RequestParam(name = "page",defaultValue = "1")Integer page,
                         @RequestParam(name = "size",defaultValue = "5")Integer size) {
-        //检测是否登录
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null){
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("token")) {
-                    String tokenValue = cookie.getValue();
-                    User user = userMapper.findByToken(tokenValue);
-                    if (user!=null){
-                        request.getSession().setAttribute("user",user);
-                    }
-                    break;
-                }
-            }
-        }
+
+        User user =(User) request.getSession().getAttribute("user");
 
         PaginationDTO paginationDTO = questionService.list(page,size);
         model.addAttribute("paginationDTO",paginationDTO);
