@@ -62,14 +62,14 @@ public class AuthorizeController {
             user.setName(githubUser.getName());
             user.setAccountId(String.valueOf(githubUser.getId()));
             user.setAvatarUrl(githubUser.getAvatarUrl());
-
-            userService.createOrUpdate(user);
             //user存放到数据库中
-            userMapper.insert(user);
+            userService.createOrUpdate(user);
+
             //记录登陆状态
             //通过response写入cookie
             response.addCookie(new Cookie("token",token));
             request.getSession().setAttribute("githubUser",githubUser);
+            request.getSession().setAttribute("user",user);
             return "redirect:/";
         }else {
             //登陆失败，重新登陆
