@@ -1,6 +1,9 @@
 package com.foling.community.service;
 import com.foling.community.dto.PaginationDTO;
 import com.foling.community.dto.QuestionDTO;
+import com.foling.community.exception.CustomizeErrorCode;
+import com.foling.community.exception.CustomizeException;
+import com.foling.community.mapper.QuestionExtMapper;
 import com.foling.community.mapper.QuestionMapper;
 import com.foling.community.mapper.UserMapper;
 import com.foling.community.model.Question;
@@ -19,6 +22,9 @@ public class QuestionService {
 
     @Autowired
     private QuestionMapper questionMapper;
+
+    @Autowired
+    private QuestionExtMapper questionExtMapper;
 
     @Autowired
     private UserMapper userMapper;
@@ -57,7 +63,7 @@ public class QuestionService {
         return paginationDTO;
     }
 
-    public PaginationDTO listByUserId(Integer userId, Integer page, Integer size) {
+    public PaginationDTO listByUserId(Long userId, Integer page, Integer size) {
 
         QuestionExample questionExample = new QuestionExample();
         questionExample.createCriteria()
@@ -96,8 +102,11 @@ public class QuestionService {
         return paginationDTO;
     }
 
-    public QuestionDTO getById(Integer id) {
+    public QuestionDTO getById(Long id) {
         Question question = questionMapper.selectByPrimaryKey(id);
+        if (question == null){
+            throw  new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+        }
         QuestionDTO questionDTO = new QuestionDTO();
         BeanUtils.copyProperties(question,questionDTO);
         User user = userMapper.selectByPrimaryKey(question.getCreator());
@@ -107,6 +116,10 @@ public class QuestionService {
 
     public void createOrUpdate(Question question) {
         if (question.getId()==null){
+            //创建
+            question.setViewCount(0);
+            question.setLikeCount(0);
+            question.setCommentCount(0);
             question.setGmtCreate(System.currentTimeMillis());
             question.setGmtModified(question.getGmtCreate());
             questionMapper.insert(question);
@@ -121,7 +134,16 @@ public class QuestionService {
             QuestionExample example = new QuestionExample();
             example.createCriteria()
                     .andIdEqualTo(question.getId());
-            questionMapper.updateByExampleSelective(updateQuestion, example);
+            int updated = questionMapper.updateByExampleSelective(updateQuestion, example);
+            if (updated!=1){
+                throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+            }
+
         }
+    }
+
+    public void incView(Long id) {
+        Question question = questionMapper.selectByPrimaryKey(id);
+        questionExtMapper.incView(question);
     }
 }
