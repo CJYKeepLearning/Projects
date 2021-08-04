@@ -22,7 +22,6 @@ public class UserService {
         List<User> users = userMapper.selectByExample(userExample);
 
         if (users.size() == 0){
-            User dbUser = users.get(0);
             //插入
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
@@ -40,5 +39,7 @@ public class UserService {
                     .andIdEqualTo(dbUser.getId());
             userMapper.updateByExampleSelective(updateUser,example);
         }
+        List<User> usersAfter = userMapper.selectByExample(userExample);
+        user.setId(usersAfter.get(0).getId());
     }
 }

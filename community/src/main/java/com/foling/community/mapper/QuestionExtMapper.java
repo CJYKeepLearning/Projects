@@ -4,6 +4,8 @@ import com.foling.community.model.Question;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * @Author foling
  * @Date2021-07-25 16:56
@@ -15,4 +17,5 @@ import org.springframework.stereotype.Component;
 public interface QuestionExtMapper {
     void incView(Question record);
     int incCommentCount(Question record);
+    List<Question> selectRelated(Question question);
 }

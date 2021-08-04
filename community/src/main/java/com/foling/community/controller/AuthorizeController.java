@@ -68,8 +68,8 @@ public class AuthorizeController {
             //记录登陆状态
             //通过response写入cookie
             response.addCookie(new Cookie("token",token));
-            request.getSession().setAttribute("githubUser",githubUser);
             request.getSession().setAttribute("user",user);
+            request.getSession().setAttribute("githubUser",githubUser);
             return "redirect:/";
         }else {
             //登陆失败，重新登陆

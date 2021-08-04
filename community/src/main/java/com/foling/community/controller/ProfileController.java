@@ -4,6 +4,7 @@ import com.foling.community.dto.PaginationDTO;
 import com.foling.community.dto.QuestionDTO;
 import com.foling.community.mapper.UserMapper;
 import com.foling.community.model.User;
+import com.foling.community.service.NotificationService;
 import com.foling.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,7 +23,8 @@ public class ProfileController {
 
     @Autowired
     private QuestionService questionService;
-
+    @Autowired
+    private NotificationService notificationService;
     @GetMapping("/profile/{action}")
     public String profile(@PathVariable(name = "action")String action,
                           @RequestParam(name = "page",defaultValue = "1")Integer page,
@@ -37,12 +39,14 @@ public class ProfileController {
         if ("questions".equals(action)){
             model.addAttribute("section","questions");
             model.addAttribute("sectionName","我的问题");
+            PaginationDTO paginationDTO = questionService.listByUserId(user.getId(), page, size);
+            model.addAttribute("paginationDTO",paginationDTO);
         }else if ("replies".equals(action)){
+            PaginationDTO paginationDTO = notificationService.listByUserId(user.getId(),page,size);
+            model.addAttribute("paginationDTO",paginationDTO);
             model.addAttribute("section","replies");
             model.addAttribute("sectionName","最新回复");
         }
-        PaginationDTO paginationDTO = questionService.listByUserId(user.getId(), page, size);
-        model.addAttribute("paginationDTO",paginationDTO);
         return "profile";
     }
 }
