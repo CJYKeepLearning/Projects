@@ -52,29 +52,29 @@
                 <ul class="pagination">
                     <!--首页-->
                     <li th:if="${paginationDTO.isShowFirstPage()}">
-                        <a th:href="@{/(page=1)}" aria-label="Previous">
+                        <a th:href="@{/(page=1,search=${search})}" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
                     <!--上一页-->
                     <li th:if="${paginationDTO.isShowPrevious()}">
-                        <a th:href="@{/(page=${paginationDTO.getPage()}-1)}" aria-label="Previous">
+                        <a th:href="@{/(page=${paginationDTO.getPage()}-1,search=${search})}" aria-label="Previous">
                             <span aria-hidden="true">&lt;</span>
                         </a>
                     </li>
                     <!--页码列表-->
                     <li th:each="page:${paginationDTO.pages}" th:class="${paginationDTO.page == page}? 'active':''">
-                        <a th:text="${page}" th:href="@{/(page=${page})}"></a>
+                        <a th:text="${page}" th:href="@{/(page=${page},search=${search})}"></a>
                     </li>
                     <!--下一页-->
                     <li th:if="${paginationDTO.isShowNext()}">
-                        <a th:href="@{/(page=${paginationDTO.getPage()}+1)}" aria-label="Next">
+                        <a th:href="@{/(page=${paginationDTO.getPage()}+1,search=${search})}" aria-label="Next">
                             <span aria-hidden="true">&gt;</span>
                         </a>
                     </li>
                     <!--尾页-->
                     <li th:if="${paginationDTO.isShowEndPage()}">
-                        <a th:href="@{/(page=${paginationDTO.getTotalPage()})}" aria-label="Next">
+                        <a th:href="@{/(page=${paginationDTO.getTotalPage()},search=${search})}" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
@@ -86,5 +86,6 @@
         </div>
     </div>
 </div>
+<div th:insert="~{footer :: foot}"></div>
 </body>
 </html>

@@ -1,7 +1,10 @@
 package com.foling.community.mapper;
 
+import com.foling.community.dto.QuestionQueryDTO;
 import com.foling.community.model.Question;
+import com.foling.community.model.QuestionExample;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -18,4 +21,8 @@ public interface QuestionExtMapper {
     void incView(Question record);
     int incCommentCount(Question record);
     List<Question> selectRelated(Question question);
+
+    Integer countBySearch(QuestionQueryDTO questionQueryDTO);
+
+    List<Question> selectBySearch(QuestionQueryDTO questionQueryDTO);
 }

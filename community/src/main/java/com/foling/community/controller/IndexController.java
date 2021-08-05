@@ -29,12 +29,14 @@ public class IndexController {
     public String index(HttpServletRequest request,
                         Model model,
                         @RequestParam(name = "page",defaultValue = "1")Integer page,
-                        @RequestParam(name = "size",defaultValue = "5")Integer size) {
+                        @RequestParam(name = "size",defaultValue = "5")Integer size,
+                        @RequestParam(name = "search",required = false)String search) {
 
         User user =(User) request.getSession().getAttribute("user");
 
-        PaginationDTO paginationDTO = questionService.list(page,size);
+        PaginationDTO paginationDTO = questionService.list(search,page,size);
         model.addAttribute("paginationDTO",paginationDTO);
+        model.addAttribute("search",search);
         return "index";
     }
 }

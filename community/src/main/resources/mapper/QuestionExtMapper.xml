@@ -35,4 +35,22 @@
     <select id="selectRelated" parameterType="com.foling.community.model.Question" resultMap="BaseResultMap">
         select * from QUESTION where id!=#{id} and tag regexp #{tag}
     </select>
+    <select id="countBySearch" parameterType="com.foling.community.dto.QuestionQueryDTO" resultType="java.lang.Integer" >
+        select count(*) from QUESTION
+        <where>
+            <if test="search != null">
+                and  title regexp #{search};
+            </if>
+        </where>
+    </select>
+    <select id="selectBySearch" parameterType="com.foling.community.dto.QuestionQueryDTO"
+            resultMap="BaseResultMap">
+        select * from QUESTION
+        <where>
+            <if test="search != null and search != ''">
+                and title regexp #{search}
+            </if>
+        </where>
+        limit #{page},#{size}
+    </select>
 </mapper>

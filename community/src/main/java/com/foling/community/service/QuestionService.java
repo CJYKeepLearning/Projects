@@ -1,6 +1,7 @@
 package com.foling.community.service;
 import com.foling.community.dto.PaginationDTO;
 import com.foling.community.dto.QuestionDTO;
+import com.foling.community.dto.QuestionQueryDTO;
 import com.foling.community.exception.CustomizeErrorCode;
 import com.foling.community.exception.CustomizeException;
 import com.foling.community.mapper.QuestionExtMapper;
@@ -31,8 +32,14 @@ public class QuestionService {
 
     @Autowired
     private UserMapper userMapper;
-    public PaginationDTO list(Integer page, Integer size){
-        Integer totalCount = (int)questionMapper.countByExample(new QuestionExample());
+    public PaginationDTO list(String search, Integer page, Integer size){
+        if (StringUtils.isNotBlank(search)){
+            String[] tags = StringUtils.split(search," ");
+            search = Arrays.stream(tags).collect(Collectors.joining("|"));
+        }
+        QuestionQueryDTO questionQueryDTO = new QuestionQueryDTO();
+        questionQueryDTO.setSearch(search);
+        Integer totalCount = questionExtMapper.countBySearch(questionQueryDTO);
 
         Integer totalPage= (totalCount + size -1 ) / size;
 
@@ -46,7 +53,9 @@ public class QuestionService {
         //offset,size这难道是一个很常用的？
         QuestionExample questionExample = new QuestionExample();
         questionExample.setOrderByClause("gmt_create desc");
-        List<Question> questions = questionMapper.selectByExampleWithRowbounds(questionExample,new RowBounds(offset,size));
+        questionQueryDTO.setSize(size);
+        questionQueryDTO.setPage(offset);
+        List<Question> questions = questionExtMapper.selectBySearch(questionQueryDTO);
         List<QuestionDTO> questionDTOList = new ArrayList<>();
 
         //页面数据
