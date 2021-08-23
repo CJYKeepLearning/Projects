@@ -16,9 +16,15 @@
 
 <body>
 <div class="container">
+    <div class="rg_up">
+        <div class="sign">
+            <img th:src="@{/img/xpu.png}" style="border-radius:50%;"/>
+            <tr>XXX管理系统</tr>
+        </div>
+    </div>
     <div style="text-align: center">
         <br><br>
-        <form th:action="@{/updateSelf(id=${id})}" method="post">
+        <form th:action="@{/updateSelf}" method="post">
             <tr>
                 <div class="form-group">
                     <label>姓名：</label>  <input type="text" name="name">
@@ -32,7 +38,14 @@
                     <label>年龄：</label>  <input type="text" name="age">
                 </div>
                 <div class="form-group">
-                    <label>班级：</label>  <input type="text" name="classNo">
+                    <div>
+                        <label>专业：</label>
+                        <select class="form-control" id="spName" name="spName">
+                            <a  th:each="specialty:${specialties}">
+                                <option th:text="${specialty.spName}"></option>
+                            </a>
+                        </select>
+                    </div>
                 </div>
 
                 <label style="color: red" th:text="${msg}"></label>

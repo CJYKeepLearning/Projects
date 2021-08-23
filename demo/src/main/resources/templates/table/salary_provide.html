@@ -17,22 +17,26 @@
 <body>
 <div class="container">
     <h3 style="text-align: center">被赡养人信息列表</h3>
-    <a class="btn btn-primary" th:href="@{addSupport.html}">添加被赡养人信息</a>
+    <div style="float: right;margin: 5px;">
+        <!--跳转到增加教师界面-->
+        <a class="btn btn-primary"  th:href="@{/addSupport.html}">
+            添加被赡养人信息
+        </a>
+    </div>
 </div>
-
 <table class="table table-bordered table-hover">
     <thead>
     <tr class="success">
-        <th>pno</th>
-        <th>tno</th>
-        <th>relationship</th>
+        <th>赡养人</th>
+        <th>被赡养人</th>
+        <th>关系</th>
         <th>删除</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="provide: ${ProvideList}">
+    <tr th:each="provide: ${provideList}">
+        <td th:each="t:${teacherList}" th:if="${t.id eq provide.TId}" th:text="${t.tname}"></td>
         <td th:text="${provide.getName()}"></td>
-        <td th:text="${provide.getTId()}"></td>
         <td th:text="${provide.getRelation()}"></td>
         <td>
             <a th:href="@{/deleteProvide/{id}(id=${provide.getTId()})}" type="button">删除</a>

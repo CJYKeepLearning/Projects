@@ -10,4 +10,5 @@ public class SalaryController {
         modelAndView.setViewName("pages/salary");
         return modelAndView;
     }
+
 }

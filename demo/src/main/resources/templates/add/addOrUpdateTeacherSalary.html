@@ -14,34 +14,28 @@
 
 <body>
 <div style="margin: 20px;text-align: center">
-    <br>
-    <h3>修改授课信息</h3>
-    <form th:action="@{/addTC}" method="post">
-        <table>
-        <tr>
-            <div class="form-group">教师号: <input type="text" name="tno"></div>
-        </tr>
-        <tr>
-            <div class="form-group">课程号: <input type="text" name="cno"></div>
-        </tr>
-        <tr>
-            <div class="form-group">教室: <input type="text" name="classroom"></div>
-        </tr>
+    <form th:action="@{/addOrUpdateTeacherSalary}" method="post">
         <tr>
             <div class="form-group">
-                <label style="color: red" th:text="${msg}"></label>
+                <td>教师号:</td>
+                <td><input type="text" name="id"></td>
+            </div>
+
+            <div class="form-group">
+                <td>职称号: </td>
+                <td><input type="text" name="title"></td>
+            </div>
+
+            <label style="color: red" th:text="${msg}"></label><br>
+            <div class="form-group">
                 <button type="submit" class="btn btn-primary">提交</button>
-                <a class="btn btn-primary" th:href="@{returnDynamicTeacher}">
+                <a class="btn btn-primary" th:href="@{salary_teacher.html}">
                     返回
                 </a>
             </div>
-
         </tr>
-
-
-        </tr>
-        </table>
     </form>
+
 
 </div>
 </body>

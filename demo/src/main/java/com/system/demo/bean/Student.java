@@ -14,5 +14,5 @@ public class Student {
     private String sname;
     private String sex;
     private Long age;
-    private Long classNo;
+    private String spName;
 }

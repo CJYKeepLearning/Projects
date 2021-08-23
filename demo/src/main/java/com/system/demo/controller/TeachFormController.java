@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.sql.Wrapper;
 import java.util.List;
 
@@ -125,19 +126,21 @@ public class TeachFormController {
         modelAndView.addObject("id",id);
         return modelAndView;
     }
-    @PostMapping("addTeachSelf/{id}")
-    public ModelAndView addTeachSelf(@PathVariable(value = "id",required = false)String id,
-                                    @RequestParam(value = "cno")String cno,
-                                    @RequestParam(value = "grade")Long grade,
-                                    @RequestParam(value = "tno")String tno, ModelAndView model){
+    @PostMapping("/addTeachSelf")
+    public ModelAndView addTeachSelf(@RequestParam(value = "cno")String cno,
+                                     @RequestParam(value = "grade")Long grade,
+                                     @RequestParam(value = "tno")String tno,
+                                     HttpServletRequest request,ModelAndView model){
         Teach teach = new Teach();
         teach.setCno(cno);
-        teach.setSno(id);
+        String sno = request.getSession().getAttribute("account").toString();
+        teach.setSno(sno);
         teach.setGrade(grade);
         teach.setTno(tno);
         teachService.save(teach);
         model.setViewName("add/addTeachSelf");
-        model.addObject("id",id);
+        model.addObject("msg","选课成功");
+        model.addObject("id",sno);
         return model;
     }
 }

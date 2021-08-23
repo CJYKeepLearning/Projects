@@ -22,7 +22,7 @@
         <form th:action="@{/updateStudent}" method="post">
             <tr>
 
-                <div class="form-group" th:if="${id==0}">
+                <div class="form-group" >
                     <label>学号：</label> <input type="text" name="id">
                 </div>
 
@@ -38,7 +38,14 @@
                     <label>年龄：</label>  <input type="text" name="age">
                 </div>
                 <div class="form-group">
-                    <label>班级：</label>  <input type="text" name="classNo">
+                    <div>
+                        <label>专业：</label>
+                        <select class="form-control" id="spName" name="spName">
+                            <a  th:each="specialty:${specialties}">
+                                <option th:text="${specialty.spName}"></option>
+                            </a>
+                        </select>
+                    </div>
                 </div>
 
                 <label style="color: red" th:text="${msg}"></label>

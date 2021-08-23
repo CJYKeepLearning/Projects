@@ -27,10 +27,21 @@
                 </div>
 
                 <div class="form-group">
+                    <td>性别: </td>
+                    <td>
+                        <input type="radio" name="sex" value="男" checked/>&nbsp;男
+                        <input type="radio" name="sex" value="女"/> &nbsp;女
+                    </td>
+                </div>
+
+                <div class="form-group">
                     <td>职称号: </td>
                     <td><input type="text" name="title"></td>
                 </div>
-                <label style="color: red" th:text="${msg}"></label><br>
+                <div class="form-group">
+                    <td>邮编: </td>
+                    <td><input type="email" name="email"></td>
+                </div>
 
                 <div class="form-group">
                     <td>城市: </td>
@@ -47,6 +58,12 @@
                     <td><input type="text" name="code"></td>
                 </div>
 
+                <div class="form-group">
+                    <td>电话: </td>
+                    <td><input type="tel" name="phone"></td>
+                </div>
+
+                <label style="color: red" th:text="${msg}"></label><br>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">提交</button>
                     <a class="btn btn-primary" th:href="@{returnDynamicTeacher}">

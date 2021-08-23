@@ -14,9 +14,7 @@ import java.sql.Time;
 public class TC {
     @TableId(type = IdType.AUTO)
     private Long id;
-    private Long tno;
-    private Long cno;
-    private Long grade;
-    private Time time;
-    private Long classroom;
+    private String tno;
+    private String cno;
+    private String classroom;
 }

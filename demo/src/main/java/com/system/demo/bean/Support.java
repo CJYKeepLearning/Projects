@@ -12,5 +12,5 @@ public class Support {
     @TableId
     private String name;
     private String relation;
-    private Long tId;
+    private String  tId;
 }

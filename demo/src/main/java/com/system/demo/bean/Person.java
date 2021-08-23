@@ -12,5 +12,5 @@ public class Person {
     @TableId
     private String account;
     private String pwd;
-    private Long power;
+    private Integer power;
 }

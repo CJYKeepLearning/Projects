@@ -30,28 +30,19 @@
         <form th:action="@{/addSupport}" method="post">
             <table>
                 <tr>
-                    <td class="td_left">教师号</td>
-                    <td class="td_right"><input type="text" name="tId"></td>
-
-                </tr>
-                <tr>
                     <td class="td_left">被赡养人</td>
                     <td class="td_right"><input type="text" name="name"></td>
-
                 </tr>
                 <tr>
                     <td class="td_left">关系</td>
                     <td class="td_right"><input type="text" name="relation"></td>
-
                 </tr>
-
-
                 <label style="color: red" th:text="${msg}"></label><br>
 
                 <tr >
                     <td colspan="4" align="center">
                         <button type="submit" class="btn btn-primary">提交</button>
-                        <a class="btn btn-primary" th:href="@{salary_provide.html}">
+                        <a class="btn btn-primary" th:href="@{returnSalarySupport}">
                             返回
                         </a>
                     </td>

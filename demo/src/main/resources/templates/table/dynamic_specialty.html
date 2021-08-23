@@ -19,7 +19,8 @@
     <tread>
         <tr class="success">
             <th>id</th>
-            <th>spname</th>
+            <th>专业名称</th>
+            <th>总人数</th>
         </tr>
     </tread>
     <tbody>
@@ -27,6 +28,7 @@
     <tr th:each="sp:${specialtyList}">
         <td th:text="${sp.id}"></td>
         <td th:text="${sp.spName}"></td>
+        <td th:text="${sp.number}"></td>
     </tr>
     </tbody>
 

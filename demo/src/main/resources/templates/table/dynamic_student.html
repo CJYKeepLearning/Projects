@@ -37,7 +37,7 @@
 
     <div style="float: right;margin: 5px;">
         <a class="btn btn-primary" th:href="@{addStudent.html}">添加学生</a>
-        <a class="btn btn-primary" th:href="@{updateStudent.html(id=0)}">更新学生信息</a>
+        <a class="btn btn-primary" th:href="@{/updateStudent.html}">更新学生信息</a>
         <a class="btn btn-primary" th:href="@{addTeach.html}">添加考试信息</a>
     </div>
 </div>
@@ -54,7 +54,7 @@
         <th>姓名</th>
         <th>性别</th>
         <th>年龄</th>
-        <th>班级</th>
+        <th>专业</th>
         <th>删除</th>
     </tr>
     </thead>
@@ -64,7 +64,7 @@
        <td th:text="${stu.sname}"></td>
        <td th:text="${stu.sex}"></td>
        <td th:text="${stu.age}"></td>
-       <td th:text="${stu.classNo}"></td>
+       <td th:text="${stu.spName}"></td>
        <td>
            <a th:href="@{/deleteStudent/{id}(id=${stu.id})}" type="button">删除</a>
        </td>

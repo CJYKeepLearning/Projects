@@ -12,8 +12,8 @@ public class Teacher {
     @TableId
     private String id;
     private String tname;
-    private Long title;
-    private Long email;
+    private String title;
+    private String email;
     private String sex;
     private String phone;
     private String city;

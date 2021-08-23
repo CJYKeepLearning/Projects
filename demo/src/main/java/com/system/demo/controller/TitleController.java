@@ -1,6 +1,7 @@
 package com.system.demo.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.system.demo.bean.Teacher;
 import com.system.demo.bean.TeacherTitle;
 import com.system.demo.bean.Title;
 import com.system.demo.service.TeacherService;
@@ -18,9 +19,9 @@ public class TitleController {
     @Autowired
     TitleService titleService;
     @Autowired
-    TeacherTitleService teacherTitleService;
+    TeacherService teacherService;
     //显示title
-    @GetMapping("/dynamic_title")
+    @GetMapping(value = {"/dynamic_title","salary_title.html"})
     public ModelAndView dynamicTitle(ModelAndView modelAndView){
         List<Title> titleList = titleService.list();
         modelAndView.addObject("titleList",titleList);
@@ -29,11 +30,11 @@ public class TitleController {
     }
     //删除Title
     @GetMapping("/deleteTitle/{id}")
-    public ModelAndView deleteTitle(@PathVariable("id")Long id,ModelAndView modelAndView){
+    public ModelAndView deleteTitle(@PathVariable("id")String id,ModelAndView modelAndView){
         Title title = titleService.getById(id);
-        QueryWrapper<TeacherTitle> queryWrapper = new QueryWrapper();
-        queryWrapper = queryWrapper.ge("title_id",title.getId());
-        List<TeacherTitle> teacherTitleList = teacherTitleService.list(queryWrapper);
+        QueryWrapper<Teacher> queryWrapper = new QueryWrapper();
+        queryWrapper = queryWrapper.eq("title",title.getId());
+        List<Teacher> teacherTitleList = teacherService.list(queryWrapper);
         if (teacherTitleList.size()!=0){
             modelAndView.addObject("msg","存在教师为此职称，删除失败!");
         }else {

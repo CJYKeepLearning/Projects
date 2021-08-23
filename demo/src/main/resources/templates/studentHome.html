@@ -19,8 +19,8 @@
 
     <div style="float: right;margin: 5px;">
 
-        <a class="btn btn-primary" th:href="@{/updateSelf.html(id=${id})}">修改个人信息</a>
-        <a class="btn btn-primary" th:href="@{/addTeachSelf.html(id=${id})}">添加选课信息</a>
+        <a class="btn btn-primary" th:href="@{/updateSelf.html(id=${session.account})}">修改个人信息</a>
+        <a class="btn btn-primary" th:href="@{/addTeachSelf.html(id=${session.account})}">添加选课信息</a>
 
     </div>
 

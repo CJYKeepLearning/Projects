@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeleaf.org">
 
@@ -7,22 +6,42 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" type="text/css" media="all"
           href="../../css/gtvg.css" th:href="@{/css/gtvg.css}" />
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- 2. jQuery导入，建议使用1.9以上的版本 -->
+    <script src="../../static/js/jquery-2.1.0.min.js"></script>
+    <!-- 3. 导入bootstrap的js文件 -->
+    <script src="../../static/js/bootstrap.min.js"></script>
 </head>
-
 <body>
-
-<form th:action="@{/addTitle}" method="post">
-    <tr>
-        titleName: <input type="text" name="titleName"><br>
-        titleWage: <input type="text" name="wage">
-        Accumulation: <input type="text" name="accumulationFund">
-        <label style="color: red" th:text="${msg}"></label><br>
-        <button type="submit">提交</button>
-    </tr>
-</form>
-<a class="" th:href="@{returnDynamicTitle}">
-    返回
-</a>
+<div class="container" style="width: 400px">
+    <h3 style="text-align: center">添加职称信息</h3>
+    <div style="margin: 20px;text-align: center">
+    <form th:action="@{/addTitle}" method="post">
+        <tr>
+            <div class="form-group">
+                <label>职称号：<input type="text" name="titleId"  id="titleId" /></label>
+            </div>
+            <div class="form-group">
+                <label th:for="titleId">职称名称：</label><input type="text" name="titleName" id="titleName"><br>
+            </div>
+            <div class="form-group">
+                <label th:for="wage">住房基金：</label><input type="text" name="wage" id="wage"><br>
+            </div>
+            <div class="form-group">
+                <label th:for="accumulationFund">住房基金：</label><input type="text" name="accumulationFund" id="accumulationFund"><br>
+            </div>
+            <div class="form-group">
+                <label th:for="oldPension">养老金：</label><input type="text" name="oldPension" id="oldPension"><br>
+            </div>
+            <label style="color: red" th:text="${msg}"></label><br>
+            <button type="submit">提交</button>
+        </tr>
+    </form>
+    <a class="" th:href="@{salary_title.html}">
+        返回
+    </a>
+    </div>
+</div>
 </body>
 
 </html>

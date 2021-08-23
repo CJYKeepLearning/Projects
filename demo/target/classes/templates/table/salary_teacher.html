@@ -17,17 +17,23 @@
 <body>
 <div class="container">
     <h3 style="text-align: center">教师信息列表</h3>
+    <div style="float: right;margin: 5px;">
+        <!--跳转到增加教师界面-->
+        <a class="btn btn-primary" th:href="@{addOrUpdateTeacherSalary.html}">
+            增加或更新教师职称信息
+        </a>
+    </div>
 </div>
-
 <table class="table table-bordered table-hover">
     <thead>
     <tr class="success">
         <th>tno</th>
-        <th>tname</th>
-        <th>sex</th>
-        <th>wage</th>
-        <th>accumulationFund</th>
-        <th>oldpension</th>
+        <th>教师名称</th>
+        <th>性别</th>
+        <th>职称</th>
+        <th>工资</th>
+        <th>住房基金</th>
+        <th>养老金</th>
     </tr>
     </thead>
     <tbody>
@@ -35,9 +41,10 @@
         <td th:text="${teacher.id}"></td>
         <td th:text="${teacher.tname}"></td>
         <td th:text="${teacher.sex}"></td>
-        <td th:text="${titles.get((teacher.title)-1).getWage()}"></td>
-        <td th:text="${titles.get((teacher.title)-1).getAccumulationFund()}"></td>
-        <td th:text="${titles.get((teacher.title)-1).getOldPension()}"></td>
+        <td th:each="title:${titles}" th:if="${teacher.title eq title.id}" th:text="${title.titleName}"></td>
+        <td th:each="title:${titles}" th:if="${teacher.title eq title.id}" th:text="${title.wage}"></td>
+        <td th:each="title:${titles}" th:if="${teacher.title eq title.id}" th:text="${title.accumulationFund}"></td>
+        <td th:each="title:${titles}" th:if="${teacher.title eq title.id}" th:text="${title.oldPension}"></td>
         <td>
             <a th:href="@{/deleteTeacher/{id}(id=${teacher.id})}" type="button">删除</a>
         </td>

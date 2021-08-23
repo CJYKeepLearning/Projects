@@ -16,17 +16,18 @@
 <table border="1" class="table table-bordered table-hover">
     <thead>
     <tr class="success">
-        <th>教师号</th>
-        <th>课程号</th>
+        <th>教师名称</th>
+        <th>课程名称</th>
+        <th>教室</th>
         <th>删除</th>
     </tr>
     </thead>
     <tbody>
     <!--根据教师号查询授课的信息-->
     <tr th:each="tc: ${list}">
-        <td th:text="${tc.tno}"></td>
-        <!--        <th th:text="${exam.getCno()}"></th>-->
-        <td th:text="${tc.cno}"></td>
+        <td th:text="${tname}"></td>
+        <td th:each="c:${courseList}" th:if="${c.id eq tc.cno}  " th:text="${c.cname}"></td>
+        <td th:text="${tc.classroom}"></td>
         <td>
             <a th:href="@{/deleteExam(id=${tc.cno})}" type="button">删除</a>
         </td>
