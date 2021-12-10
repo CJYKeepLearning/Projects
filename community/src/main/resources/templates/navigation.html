@@ -5,9 +5,9 @@
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Foling Community</span>
+            <span class="sr-only">Community</span>
         </button>
-        <a class="navbar-brand" href="/">Foling Community</a>
+        <a class="navbar-brand" href="/">Community</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -23,7 +23,7 @@
                 <a th:href="@{/publish}">发布</a>
             </li>
             <li th:if="${session.user != null }">
-                <a href="/profile/replies">通知<span class="badge" th:text="${session.unreadCount}"></span> </a>
+                <a href="/profile/replies">通知  <span class="badge" style="" th:text="${session.unreadCount}"></span> </a>
             </li>
             <li th:if="${session.user == null }">
                 <a href="https://github.com/login/oauth/authorize?client_id=ed649d9ab02352975f0c&redirect_uri=http://localhost:8887/callback&scope=user&state=1">登录</a>
