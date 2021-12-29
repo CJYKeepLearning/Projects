@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sky.system.mapper.TrainMapper">
+  <resultMap id="BaseResultMap" type="com.sky.system.data.po.Train">
+    <!--@mbg.generated-->
+    <!--@Table train-->
+    <id column="train_id" jdbcType="VARCHAR" property="trainId" />
+    <result column="start_station" jdbcType="VARCHAR" property="startStation" />
+    <result column="end_station" jdbcType="VARCHAR" property="endStation" />
+    <result column="start_time" jdbcType="TIME" property="startTime" />
+    <result column="end_time" jdbcType="TIME" property="endTime" />
+    <result column="across_days" jdbcType="INTEGER" property="acrossDays" />
+    <result column="station_info" jdbcType="VARCHAR" property="stationInfo" />
+    <result column="seat_info" jdbcType="VARCHAR" property="seatInfo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    train_id, start_station, end_station, start_time, end_time, across_days, station_info, 
+    seat_info
+  </sql>
+</mapper>

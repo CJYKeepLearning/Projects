@@ -1,0 +1,13 @@
+.input {
+  /*margin: auto 20px;*/
+  width: 200px;
+}
+
+.ant-header {
+  /*margin: auto;*/
+  background: #D4F1EF;
+}
+
+.header-child {
+  margin: auto 300px 0;
+}

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sky.system.mapper.TicketSeatLinkMapper">
+    <resultMap id="BaseResultMap" type="com.sky.system.data.po.TicketSeatLink">
+        <id column="ticket_id" jdbcType="BIGINT" property="ticketId"/>
+        <id column="seat_id" jdbcType="BIGINT" property="seatId"/>
+        <result column="sold" jdbcType="TINYINT" property="sold"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        SELECT ticket_id,
+               seat_id,
+               sold
+        FROM ticket_seat_link
+    </sql>
+    <select id="selectOneTicket" resultMap="BaseResultMap">
+        <include refid="Base_Column_List"/>
+        WHERE ticket_id = #{ticketId}
+          AND sold = 0
+        ORDER BY seat_id
+        LIMIT 1
+    </select>
+    <update id="update">
+        UPDATE ticket_seat_link
+        SET sold = #{sold}
+        WHERE ticket_id = #{ticketId}
+          AND seat_id = #{seatId}
+    </update>
+</mapper>

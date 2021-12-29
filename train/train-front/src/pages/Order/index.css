@@ -1,0 +1,27 @@
+.site-page-header {
+  /*background: #D4F1EF;*/
+}
+
+.order-buy-content {
+  margin: 30px 300px;
+}
+
+.order-buy-btn {
+  background: #FFFBE6;
+  justify-content: center;
+  width: 120px;
+  height: 60px;
+  font-size: 18px;
+  font-weight: bold;
+  /*margin-left: 350px;*/
+}
+
+.order-menu {
+  background: #E2F1FF;
+  margin: 20px 450px;
+  font-size: 17px;
+}
+
+.order-manager-card{
+
+}
